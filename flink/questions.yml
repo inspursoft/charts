@@ -1,0 +1,73 @@
+questions:
+- variable: defaultImage
+  default: "true"
+  description: "Use default Docker images"
+  label: Use Default Images
+  type: boolean
+  show_subquestion_if: "false"
+  group: "Container Images"
+  subquestions:
+  - variable: image.repository
+    default: "flink"
+    description: "Flink Docker image name"
+    type: string
+    label: Flink Image Name
+  - variable: image.tag
+    default: "1.9.1-scala_2.12_withjars"
+    description: "Flink Docker image tag"
+    type: string
+    label: Flink Image Tag
+- variable: jobmanager.service.type
+  default: "NodePort"
+  description: "Flink Service Type"
+  group: "Services and Load Balancing"
+  required: true
+  type: string
+  label: Service Type
+- variable: jobmanager.persistent.enabled
+  default: false
+  description: "Enable persistent volume for jobmanager"
+  type: boolean
+  required: true
+  label: JobManger Persistent Volume Enabled
+  show_subquestion_if: true
+  group: "Jobmanager Settings"
+  subquestions:
+  - variable: jobmanager.persistent.size
+    default: "8Gi"
+    description: "Jobmanager Persistent Volume Size"
+    type: string
+    label: Jobmanager Volume Size
+  - variable: jobmanager.persistent.storageClass
+    default: ""
+    description: "If undefined or null, uses the default StorageClass. Default to null"
+    type: string
+    label: Default StorageClass for Jobmanager
+- variable: taskmanager.persistent.enabled
+  default: false
+  description: "Enable persistent volume for taskmanager"
+  type: boolean
+  required: true
+  label: TaskManger Persistent Volume Enabled
+  show_subquestion_if: true
+  group: "Taskmanager Settings"
+  subquestions:
+  - variable: taskmanager.persistent.size
+    default: "8Gi"
+    description: "Taskmanager Persistent Volume Size"
+    type: string
+    label: Taskmanager Volume Size
+  - variable: taskmanager.persistent.storageClass
+    default: ""
+    description: "If undefined or null, uses the default StorageClass. Default to null"
+    type: string
+    label: Default StorageClass for Taskmanager
+- variable: taskmanager.replicaCount
+  default: 4
+  description: "Replicas of Task Managers"
+  type: int
+  min: 4
+  max: 30
+  required: true
+  label: Task Managers
+  group: "TaskManager Settings"

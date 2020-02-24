@@ -1,0 +1,85 @@
+questions:
+- variable: defaultImage
+  default: "true"
+  description: "Use default Docker images"
+  label: Use Default Images
+  type: boolean
+  show_subquestion_if: "false"
+  group: "Container Images"
+  subquestions:
+  - variable: image
+    default: "confluentinc/cp-kafka"
+    description: "Kafka Docker image name"
+    type: string
+    label: Kafka Image Name
+  - variable: imageTag
+    default: "4.1.2-2"
+    description: "Kafka Docker image tag"
+    type: string
+    label: Kafka Image Tag
+  - variable: zookeeper.image.repository
+    default: "inspursoft/k8szk"
+    description: "Zookeeper Docker image name"
+    type: string
+    label: Zookeeper Image Name
+  - variable: zookeeper.image.tag
+    default: "v3"
+    description: "Zookeeper Docker image tag"
+    type: string
+    label: Zookeeper Image Tag
+- variable: replicas
+  default: 3
+  description: "Replicas of Kafka Brokers"
+  type: int
+  min: 3
+  max: 30
+  required: true
+  label: Kafka Brokers
+  group: "Kafka Settings"
+- variable: persistence.enabled
+  default: false
+  description: "Enable persistent volume for Kafka"
+  type: boolean
+  required: true
+  label: Kafka Persistent Volume Enabled
+  show_subquestion_if: true
+  group: "Kafka Settings"
+  subquestions:
+  - variable: persistence.size
+    default: "5Gi"
+    description: "Kafka Persistent Volume Size"
+    type: string
+    label: Kafka Volume Size
+  - variable: persistence.storageClass
+    default: ""
+    description: "If undefined or null, uses the default StorageClass. Default to null"
+    type: string
+    label: Default StorageClass for Kafka
+- variable: zookeeper.replicaCount
+  default: 3
+  description: "Replicas of Zookeeper"
+  type: int
+  min: 3
+  max: 30
+  required: true
+  label: Zookeeper Nodes
+  group: "Zookeeper Settings"
+- variable: zookeeper.persistence.enabled
+  default: false
+  description: "Enable persistent volume for Zookeeper"
+  type: boolean
+  required: true
+  label: Zookeeper Persistent Volume Enabled
+  show_subquestion_if: true
+  group: "Zookeeper Settings"
+  subquestions:
+  - variable: zookeeper.persistence.size
+    default: "5Gi"
+    description: "Zookeeper Persistent Volume Size"
+    type: string
+    label: Zookeeper Volume Size
+  - variable: zookeeper.persistence.storageClass
+    default: ""
+    description: "If undefined or null, uses the default StorageClass. Default to null"
+    type: string
+    label: Default StorageClass for Zookeeper
