@@ -6,7 +6,7 @@ nameOverride: ""
 fullnameOverride: ""
 
 image:
-  repository: inspursoft/flink 
+  repository: __REGISTRY_PREFIX__inspursoft/flink 
   tag: 1.9.1-scala_2.12
   pullPolicy: IfNotPresent
 imagePullSecrets: []

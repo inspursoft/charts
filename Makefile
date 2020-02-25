@@ -1,11 +1,14 @@
 PackageDir=packages
 DIRS := $(shell find . -maxdepth 1 -type d)
 IgnoreDirs=. ./.git ./$(PackageDir)
-
+REGISTRY?=
 
 all: package
 
-package:
+transform:
+	sed -i "s/__REGISTRY_PREFIX__/$(REGISTRY)/g" .
+
+package: transform
 	@if [ ! -d "$(PackageDir)" ]; then mkdir $(PackageDir); fi
 	@for dir in $(DIRS); \
 	do \
@@ -21,3 +24,5 @@ package:
 			helm package -d $(PackageDir) $$dir; \
                 fi; \
 	done
+
+.PHONY: transform

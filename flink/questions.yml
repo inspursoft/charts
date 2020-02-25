@@ -8,7 +8,7 @@ questions:
   group: "Container Images"
   subquestions:
   - variable: image.repository
-    default: "flink"
+    default: "__REGISTRY_PREFIX__flink"
     description: "Flink Docker image name"
     type: string
     label: Flink Image Name

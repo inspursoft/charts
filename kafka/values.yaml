@@ -6,7 +6,7 @@
 replicas: 3
 
 ## The kafka image repository
-image: "confluentinc/cp-kafka"
+image: "__REGISTRY_PREFIX__confluentinc/cp-kafka"
 
 ## The kafka image tag
 imageTag: "4.1.2-2"
@@ -146,7 +146,7 @@ external:
   firstListenerPort: 31090
   domain: cluster.local
   init:
-    image: "lwolf/kubectl_deployer"
+    image: "__REGISTRY_PREFIX__lwolf/kubectl_deployer"
     imageTag: "0.4"
     imagePullPolicy: "IfNotPresent"
 
@@ -250,7 +250,7 @@ prometheus:
     enabled: false
 
     ## The image to use for the metrics collector
-    image: solsson/kafka-prometheus-jmx-exporter@sha256
+    image: __REGISTRY_PREFIX__solsson/kafka-prometheus-jmx-exporter@sha256
 
     ## The image tag to use for the metrics collector
     imageTag: a23062396cd5af1acdf76512632c20ea6be76885dfc20cd9ff40fb23846557e8
@@ -274,7 +274,7 @@ prometheus:
     enabled: false
 
     ## The image to use for the metrics collector
-    image: danielqsj/kafka-exporter
+    image: __REGISTRY_PREFIX__danielqsj/kafka-exporter
 
     ## The image tag to use for the metrics collector
     imageTag: v1.2.0

@@ -8,7 +8,7 @@ questions:
   group: "Container Images"
   subquestions:
   - variable: image
-    default: "confluentinc/cp-kafka"
+    default: "__REGISTRY_PREFIX__confluentinc/cp-kafka"
     description: "Kafka Docker image name"
     type: string
     label: Kafka Image Name
@@ -18,7 +18,7 @@ questions:
     type: string
     label: Kafka Image Tag
   - variable: zookeeper.image.repository
-    default: "inspursoft/k8szk"
+    default: "__REGISTRY_PREFIX__inspursoft/k8szk"
     description: "Zookeeper Docker image name"
     type: string
     label: Zookeeper Image Name
