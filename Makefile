@@ -1,6 +1,7 @@
+SHELL := /bin/bash
 PackageDir=packages
-DIRS := $(shell find . -maxdepth 1 -type d)
-IgnoreDirs=. ./.git ./$(PackageDir)
+DIRS := $(shell ls -l . |awk '/^d/ {print $$NF}')
+IgnoreDirs=$(PackageDir)
 REGISTRY?=
 
 all: package
@@ -18,9 +19,16 @@ package:
 			fi; \
 		done; \
 		if [ "$$ischart" == "true" ]; then \
-			find $$dir -type f -exec sed -i "s|__REGISTRY_PREFIX__|$(REGISTRY)|g" {} +; \
-			helm package -d $(PackageDir) $$dir; \
+			cp -r $$dir $(PackageDir); \
+			find $(PackageDir)/$$dir -type f -exec sed -i "s|__REGISTRY_PREFIX__|$(REGISTRY)|g" {} +; \
+			helm package -d $(PackageDir) $(PackageDir)/$$dir; \
+			rm -rf $(PackageDir)/$$dir; \
                 fi; \
 	done
+	@echo "package the helm charts into $(PackageDir) successfully!"
 
-.PHONY: transform
+clean:
+	@rm -rf $(PackageDir)
+	@echo "remove $(PackageDir) successfully!"
+
+.PHONY: transform clean
