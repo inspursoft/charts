@@ -5,10 +5,7 @@ REGISTRY?=
 
 all: package
 
-transform:
-	sed -i "s/__REGISTRY_PREFIX__/$(REGISTRY)/g" .
-
-package: transform
+package:
 	@if [ ! -d "$(PackageDir)" ]; then mkdir $(PackageDir); fi
 	@for dir in $(DIRS); \
 	do \
@@ -21,6 +18,7 @@ package: transform
 			fi; \
 		done; \
 		if [ "$$ischart" == "true" ]; then \
+			find $$dir -type f -exec sed -i "s|__REGISTRY_PREFIX__|$(REGISTRY)|g" {} +; \
 			helm package -d $(PackageDir) $$dir; \
                 fi; \
 	done
