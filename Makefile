@@ -7,6 +7,7 @@ REGISTRY?=
 all: package
 
 package:
+	@echo "Using registry $(REGISTRY)"
 	@if [ ! -d "$(PackageDir)" ]; then mkdir $(PackageDir); fi
 	@for dir in $(DIRS); \
 	do \
@@ -25,10 +26,13 @@ package:
 			rm -rf $(PackageDir)/$$dir; \
                 fi; \
 	done
-	@echo "package the helm charts into $(PackageDir) successfully!"
+	@echo "Package the helm charts into $(PackageDir) successfully!"
+
+package_source: REGISTRY=__REGISTRY_PREFIX__
+package_source: package
 
 clean:
 	@rm -rf $(PackageDir)
-	@echo "remove $(PackageDir) successfully!"
+	@echo "Remove $(PackageDir) successfully!"
 
-.PHONY: transform clean
+.PHONY: package package_source clean 
