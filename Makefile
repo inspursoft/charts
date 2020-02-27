@@ -20,9 +20,12 @@ package:
 			fi; \
 		done; \
 		if [ "$$ischart" == "true" ]; then \
-			cp -r $$dir $(PackageDir); \
+			chartName=$$(awk '/^name:/ {print $$2}' $$dir/Chart.yaml); \
+			chartVersion=$$(awk '/^version:/ {print $$2}' $$dir/Chart.yaml); \
+			target=$$chartName-$$chartVersion; \
+			cp -r $$dir $(PackageDir)/$$dir; \
 			find $(PackageDir)/$$dir -type f -exec sed -i "s|__REGISTRY_PREFIX__|$(REGISTRY)|g" {} +; \
-			helm package -d $(PackageDir) $(PackageDir)/$$dir; \
+			tar -zcf $(PackageDir)/$$target.tgz -C $(PackageDir)  $$dir; \
 			rm -rf $(PackageDir)/$$dir; \
                 fi; \
 	done
